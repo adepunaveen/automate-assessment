@@ -5,6 +5,7 @@ const dashboardRoutes = require("./routes/dashboard");
 const verifyToken = require("./routes/validate-token");
 const authRoutes = require("./routes/auth");
 const fileRoutes = require("./routes/file");
+const folderRoutes = require("./routes/folder");
 const mongoose = require("mongoose");
 
 
@@ -26,6 +27,7 @@ app.use(express.json()); // for body parser
 app.use("/api/user", authRoutes);
 app.use("/api/dashboard", verifyToken, dashboardRoutes);
 app.use("/api/file", verifyToken,fileRoutes);
+app.use("/api/folder", verifyToken,folderRoutes);
 
 
 app.listen(3000, () => console.log("server is running..."));

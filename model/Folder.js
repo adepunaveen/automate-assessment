@@ -4,16 +4,13 @@ const folderSchema = new mongoose.Schema({
   foldername: {
     type: String,
     required: true,
-    min: 6,
+    min: 1,
     max: 255,
-    index: { unique: true } 
   },
   owner: {
     type: String,
     required: true,
-    min: 6,
     max: 255,
-    index: { unique: true } 
   },
   date: {
     type: Date,
