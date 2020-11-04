@@ -8,7 +8,6 @@ const fileRoutes = require("./routes/file");
 const folderRoutes = require("./routes/folder");
 const mongoose = require("mongoose");
 
-
 dotenv.config();
 // import routes
 // connect to db
@@ -18,10 +17,16 @@ mongoose.connect(
   useNewUrlParser: true,
   useUnifiedTopology: true,
 },
-() => console.log("connected to db")
+(err,db) => {
+  if(err){
+    console.log(" Error Connecting Database ",err)
+    return
+  }
+  console.log("connected to db")}
 );
 // middlewares
 app.use(express.json()); // for body parser
+
 
 // route middlewares
 app.use("/api/user", authRoutes);
