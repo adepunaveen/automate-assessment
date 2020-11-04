@@ -19,6 +19,13 @@ router.post("/addfile", async (req, res) => {
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
 
+    if(req.body.filepath !== "/"){
+        const isFolderExists = await Folder.findOne({foldername:req.body.filepath,owner:req.user.id})
+        if(!isFolderExists)
+            return res.status(400).json({ message:"Folder does not exists"});
+
+    }
+
     try {
         const newFile = new File({
             filename: req.body.filename,
@@ -62,7 +69,7 @@ router.post("/movefile", async (req, res) => {
         isFileExist.filepath = req.body.targetfolder;
      //   const res = await isFileExist.save()
      const result = await File.findOneAndUpdate({_id: isFileExist._id},{$set:{filepath: req.body.targetfolder}})
-        res.json( result );
+        res.json( isFileExist );
     } catch (error) {
         res.status(400).json({ error });
     }

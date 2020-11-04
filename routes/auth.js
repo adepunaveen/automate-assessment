@@ -10,11 +10,15 @@ const schema = Joi.object({
   password: Joi.string().min(6).max(1024).required(),
 });
 
+const loginschema = Joi.object({
+  email: Joi.string().min(6).max(255).required().email(),
+  password: Joi.string().min(6).max(1024).required(),
+});
 // login route
 router.post("/login", async (req, res) => {
 
   // validate the user
-  const { error } = schema.validate(req.body);
+  const { error } = loginschema.validate(req.body);
 
   // throw validation errors
   if (error) return res.status(400).json({ error:   error.details[0].message });
