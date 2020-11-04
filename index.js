@@ -29,5 +29,5 @@ app.use("/api/dashboard", verifyToken, dashboardRoutes);
 app.use("/api/file", verifyToken,fileRoutes);
 app.use("/api/folder", verifyToken,folderRoutes);
 
-
-app.listen(3000, () => console.log("server is running..."));
+const port = process.env.port || 3000
+app.listen(3000, () => console.log(`server is running on port ${port}...`));
